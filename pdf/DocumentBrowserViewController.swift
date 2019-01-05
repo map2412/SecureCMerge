@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+var buttonTag:String?
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
@@ -46,6 +46,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentsAt documentURLs: [URL]) {
         guard let sourceURL = documentURLs.first else { return }
         
+        
         // Present the Document View Controller for the first document that was picked.
         // If you support picking multiple items, make sure you handle them all.
         presentDocument(at: sourceURL)
@@ -66,7 +67,20 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DocumentViewController") as! DocumentViewController
+        let  MergeViewController = storyBoard.instantiateViewController(withIdentifier: "MergeViewController") as! MergeViewController
+        
         documentViewController.document = Document(fileURL: documentURL)
+        MergeViewController.document = Document(fileURL: documentURL)
+        //print("buttonTad",buttonTag!)
+        if buttonTag == "Choose_PDF1"
+        {
+            flag = 1
+        }
+        else
+        {
+            flag = 0
+        }
+        
         
         present(documentViewController, animated: true, completion: nil)
     }
